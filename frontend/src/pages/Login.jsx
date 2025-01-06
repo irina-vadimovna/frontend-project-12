@@ -10,7 +10,7 @@ import avatar from '../assets/avatar.jpg';
 
 
 const userSchema = () => object().shape({
-  username: string().min(3).required(),
+  username: string().required(),
   password: string().required(),
 });
 
@@ -53,7 +53,7 @@ export const Login = () => {
   });
 
   return (
-    <Container fluid className="h-100">
+      <Container fluid className="h-100">
       <Row className="justify-content-center align-content-center h-100">
         <Col className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
