@@ -9,7 +9,7 @@ function App() {
   return (
     <BrowserRouter>
       <div class="d-flex flex-column h-100">
-        <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
+        <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white"> {/* Вынести навигацию в отдельный компонент */}
           <div className='container'>
             <a className='navbar-brand' href='/'>Hexlet Chat</a>
           </div>
