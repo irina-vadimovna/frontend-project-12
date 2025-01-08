@@ -1,13 +1,45 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
+import { addMessage } from '../../store/messagesSlice.js';
+// import { useFormik } from 'formik';
+// import axios from 'axios';
 
 const MessagesList = ({ channels, selectedChannelId, messages }) => {
   const inputEl = useRef(null);
 
+  // Добавить useFormik для отслеживания вводимых сообщений + фокус на поле ввода выбранного канала
+  // const formik = useFormik({
+  //   initialValues: { body: '' },
+  //   onSubmit: async (values, { resetForm }) => {
+  //     if (values.body.trim()) {
+  //       const newMessage = {
+  //         body: values.body,
+  //         channelId: selectedChannelId,
+  //         username: localStorage.getItem('username'),
+  //       };
+  //       try {
+  //         const response = await axios.post('/api/v1/messages', newMessage, {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem('token')}`,
+  //           },
+  //         });
+
+  //         // Обновление состояния сообщений в компоненте
+  //         setMess((prevMessages) => [...prevMessages, response.data]);
+
+  //         // Очистка формы и фокус на вводе
+  //         resetForm();
+  //         inputEl.current.focus();
+
+  //       } catch (error) {
+  //         console.error('Ошибка при отправке сообщения:', error);
+  //       }
+  //     }
+  //   },
+  // });
+
   useEffect(() => {
     inputEl.current.focus();
   }, []);
-
-  // Добавить useFormik для отслеживания вводимых сообщений + фокус на поле ввода выбранного канала
 
   return (
     <div className="col p-0 h-100">
@@ -18,19 +50,22 @@ const MessagesList = ({ channels, selectedChannelId, messages }) => {
             selectedChannelId === channel.id ? <b># {channel.name}</b> : ''
           ))}
           </p>
-          <span className="text-muted">0 сообщений</span>  {/* Добавить отрисовку количества сообщений */}
+          <span className="text-muted">
+            {messages.filter(message => message.channelId === selectedChannelId).length} сообщений
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5">   {/* Проверить работоспособность */}
         {messages.filter(message => message.channelId === selectedChannelId).map((message) => (
           <div key={message.id} className="text-break mb-2">
-            <b>{message.username}</b>`:` aaaaa {message.body}
+            <b>{message.username}</b>: {message.body}
           </div>
         ))}
         </div>
         <div className="mt-auto px-5 py-3">
           <form noValidate className="py-1 border rounded-2">
             <div className="input-group has-validation">
-              <input name="body" 
+              <input 
+                name="body" 
                 aria-label="Новое сообщение" 
                 placeholder="Введите сообщение..." 
                 className="border-0 p-0 ps-2 form-control"

@@ -3,17 +3,14 @@ import { General } from './pages/General.jsx';
 import { Login } from './pages/Login.jsx';
 import { NotFound } from './pages/NotFoundPage.jsx';
 import AuthProvider, { PrivateRoute } from './context/AuthProvider.jsx';
+import NavBar from './components/NavBar.jsx';
 
 
 function App() {
   return (
     <BrowserRouter>
       <div class="d-flex flex-column h-100">
-        <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-white"> {/* Вынести навигацию в отдельный компонент */}
-          <div className='container'>
-            <a className='navbar-brand' href='/'>Hexlet Chat</a>
-          </div>
-        </nav>
+        <NavBar />
         <AuthProvider>
           <Routes>
             <Route path={'/'} element={(

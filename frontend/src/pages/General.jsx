@@ -20,7 +20,7 @@ export const General = () => {
 
   const fetchChannels = async () => {
     try {
-      if (auth.logIn) {
+      if (auth.loggedIn) {
         const response = await axios.get('/api/v1/channels', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -51,11 +51,11 @@ export const General = () => {
   };
 
   useEffect(() => {
-    if (auth.logIn) {
+    if (auth.loggedIn) {
       fetchChannels();
       fetchMessages();
     }
-  }, [auth.logIn]);
+  }, [auth.loggedIn]);
 
   useEffect(() => {
     if (channels.length > 0 && selectedChannelId === null) {
