@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Container, Row } from 'react-bootstrap';
 import useAuth from "../hooks";
 import { addServerChannels, selectChannels } from "../store/channelsSlice.js";
-import { addServerMessages, selectMessages } from "../store/messagesSlice.js";
+import { getServerMessages, selectMessages } from "../store/messagesSlice.js";
 import ChannelsList from "../components/generalPage/ChannelsList.jsx";
 import MessagesList from "../components/generalPage/MessagesList.jsx";
 
@@ -43,7 +43,7 @@ export const General = () => {
           }
         })
         console.log(response.data);
-        dispatch(addServerMessages(response.data));
+        dispatch(getServerMessages(response.data));
       }
     } catch (err) {
       console.log('Big error! NO MESSAGES')

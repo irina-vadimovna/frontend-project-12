@@ -8,7 +8,7 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addServerMessages(state, action) {
+    getServerMessages(state, action) {
       state.messages = action.payload;
     },
     addMessage(state, action) {
@@ -18,5 +18,5 @@ const messagesSlice = createSlice({
 });
 
 export const selectMessages = (state) => state.messages.messages;
-export const { addServerMessages, addMessage } = messagesSlice.actions;
+export const { getServerMessages, addMessage } = messagesSlice.actions;
 export default messagesSlice.reducer;
