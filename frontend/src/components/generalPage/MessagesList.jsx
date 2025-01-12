@@ -25,7 +25,6 @@ const MessagesList = ({ channels, selectedChannelId, messages }) => {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           });
-          // dispatch(addMessage(response.data));
 
           resetForm();
           inputEl.current.focus();

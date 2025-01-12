@@ -20,10 +20,11 @@ export const Login = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [authFailed, setAuthFailed] = useState(false);
-  const inputEl = useRef(null);
+  const usernameInputEl = useRef(null);
+  const passwordInputEl = useRef(null); 
 
   useEffect(() => {
-    inputEl.current.focus();
+    usernameInputEl.current.focus();
   }, []);
 
   const formik = useFormik({
@@ -73,7 +74,7 @@ export const Login = () => {
                       onChange={formik.handleChange}
                       value={formik.values.username}
                       isInvalid={authFailed}
-                      ref={inputEl}
+                      ref={usernameInputEl}
                     />
                     <Form.Label>{t('loginForm.username')}</Form.Label>
                   </Form.Group>
@@ -86,7 +87,7 @@ export const Login = () => {
                       onChange={formik.handleChange} 
                       value={formik.values.password}
                       isInvalid={authFailed}
-                      ref={inputEl}
+                      ref={passwordInputEl}
                     />
                     <Form.Label>{t('loginForm.password')}</Form.Label>
                     <Form.Control.Feedback type="invalid">

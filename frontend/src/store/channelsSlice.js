@@ -11,9 +11,9 @@ const channelsSlice = createSlice({
     addServerChannels(state, action) {
       state.channels = action.payload;
     },
-    // addChannels: (state) => {
-
-    // },
+    addChannel: (state, action) => {
+      state.channels.push(action.payload);
+    },
     // removeChannels: (state, action) => {  // удаление каналов
     //   state.value -= action.payload;
     // },
@@ -21,5 +21,5 @@ const channelsSlice = createSlice({
 });
 
 export const selectChannels = (state) => state.channels.channels;
-export const { addServerChannels } = channelsSlice.actions;
+export const { addServerChannels, addChannel } = channelsSlice.actions;
 export default channelsSlice.reducer;
