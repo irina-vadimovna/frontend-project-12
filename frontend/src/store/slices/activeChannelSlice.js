@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import defaultChannel from './defaultChannel';
 
@@ -9,7 +10,6 @@ const activeChannelsSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
-      // eslint-disable no-param-reassign
       state.activeChannel = action.payload;
     },
   },
