@@ -1,27 +1,42 @@
+import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
+import { setupListeners } from '@reduxjs/toolkit/query';
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { Provider } from 'react-redux';
-import store from './store/index.js';
-import App from './App.jsx';
-import resources from './locales/index.js';
+import filter from 'leo-profanity';
+import resources from './locales/index';
+import App from './App';
+import store from './store/store';
+import setupWebSocketListeners from './store/api/webSocketHandler';
 
 const init = async () => {
-  const i18n = i18next.createInstance();
+  filter.add(filter.getDictionary('en'));
+  filter.add(filter.getDictionary('ru'));
 
-  await i18n
-    .use(initReactI18next)
-    .init({
-      resources,
-      fallbackLng: 'ru',
-      interpolation: {
-        escapeValue: false,
-      }
-    });
+  const i18n = i18next.createInstance();
+  const options = {
+    resources,
+    fallbackLng: 'ru',
+    interpolation: {
+      escapeValue: false,
+    },
+  };
+
+  await i18n.use(initReactI18next).init(options);
+
+  setupWebSocketListeners(store);
+  setupListeners(store.dispatch);
+
+  const rollbarConfig = {
+    accessToken: import.meta.env.VITE_ROLLBAR_TOKEN,
+    environment: 'production',
+  };
 
   return (
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <App />
+      </ErrorBoundary>
+    </RollbarProvider>
   );
 };
 

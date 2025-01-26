@@ -1,31 +1,52 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { General } from './pages/General.jsx';
-import { Login } from './pages/Login.jsx';
-import { NotFound } from './pages/NotFoundPage.jsx';
-import AuthProvider, { PrivateRoute } from './context/AuthProvider.jsx';
-import NavBar from './components/NavBar.jsx';
+import { ToastContainer, Bounce } from 'react-toastify';
+import routes from './utils/routes';
+import NotFoundPage from './pages/NotFoundPage';
+import MainLayout from './components/Pages/MainLayout';
+import LoginPage from './pages/LoginPage';
+import AuthProvider from './contexts/AuthProvider';
+import store from './store/store';
+import ChatPage from './pages/ChatPage';
+import SignUpPage from './pages/SignUpPage';
+import PrivateRoute from './contexts/PrivateRoute';
 
-
-function App() {
-  return (
-    <BrowserRouter>
-      <div class="d-flex flex-column h-100">
-        <NavBar />
-        <AuthProvider>
+const App = () => (
+  <BrowserRouter>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Bounce}
+    />
+    <Provider store={store}>
+      <AuthProvider>
+        <MainLayout>
           <Routes>
-            <Route path={'/'} element={(
-              <PrivateRoute>
-                <General />
-              </PrivateRoute>
-              )} 
+            <Route
+              path={routes.mainPagePath()}
+              element={(
+                <PrivateRoute>
+                  <ChatPage />
+                </PrivateRoute>
+              )}
             />
-            <Route path={'/login'} element={<Login />} />
-            <Route path="*" element={<NotFound />} />
+            <Route path={routes.loginPagePath()} element={<LoginPage />} />
+            <Route path={routes.signUpPagePath()} element={<SignUpPage />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
-        </AuthProvider>
-      </div>
-    </BrowserRouter>
-  );
-}
+        </MainLayout>
+      </AuthProvider>
+    </Provider>
+  </BrowserRouter>
+);
 
 export default App;
