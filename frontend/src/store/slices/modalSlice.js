@@ -10,6 +10,7 @@ const modalSlice = createSlice({
   initialState,
   reducers: {
     openModal: (state, action) => {
+      // eslint-disable no-param-reassign
       state.modalType = action.payload.type;
       state.channel = action.payload.channel;
     },

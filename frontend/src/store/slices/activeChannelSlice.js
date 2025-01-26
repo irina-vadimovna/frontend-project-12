@@ -9,6 +9,7 @@ const activeChannelsSlice = createSlice({
   initialState,
   reducers: {
     setActiveChannel: (state, action) => {
+      // eslint-disable no-param-reassign
       state.activeChannel = action.payload;
     },
   },
