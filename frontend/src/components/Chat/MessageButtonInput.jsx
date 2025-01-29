@@ -1,4 +1,4 @@
-import MessageIcon from "../../assets/icons/MessageIcon";
+import MessageIcon from '../../assets/icons/MessageIcon';
 
 const MessageButtonInput = () => (
   <MessageIcon />

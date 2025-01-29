@@ -18,7 +18,7 @@ const MessagesContainer = () => {
   const [addMessage] = useAddMessagesMutation();
   const channelMessages = messages?.filter((message) => message.channelId === activeChannelId);
   const countMessages = channelMessages?.length || 0;
-  const { username } = useAuth();
+  const { userName } = useAuth();
 
   return (
     <div className="col p-0 h-100">
@@ -33,7 +33,7 @@ const MessagesContainer = () => {
         <div className="mt-auto px-5 py-3">
           <MessagesForm
             channelId={activeChannelId}
-            username={username}
+            username={userName}
             addMessage={addMessage}
             isLoading={isLoading}
           />

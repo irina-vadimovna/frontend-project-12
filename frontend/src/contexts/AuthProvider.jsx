@@ -3,7 +3,7 @@ import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
-  const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const [userName, setUsername] = useState(localStorage.getItem('username') || '');
 
   const logIn = (token, username) => {
     localStorage.setItem('token', token);
@@ -22,11 +22,11 @@ const AuthProvider = ({ children }) => {
   const authValue = useMemo(
     () => ({
       loggedIn,
-      username,
+      userName,
       logIn,
       logOut,
     }),
-    [loggedIn, username],
+    [loggedIn, userName],
   );
 
   return (
