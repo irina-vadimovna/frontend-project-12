@@ -8,6 +8,7 @@ import {
 } from '../../store/api/chatApi';
 import MessagesBox from './MessagesBox';
 import MessagesForm from './MessagesForm';
+import useAuth from '../../hooks/useAuth';
 
 const MessagesContainer = () => {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ const MessagesContainer = () => {
   const [addMessage] = useAddMessagesMutation();
   const channelMessages = messages?.filter((message) => message.channelId === activeChannelId);
   const countMessages = channelMessages?.length || 0;
-  const username = localStorage.getItem('username');
+  const { username } = useAuth();
 
   return (
     <div className="col p-0 h-100">

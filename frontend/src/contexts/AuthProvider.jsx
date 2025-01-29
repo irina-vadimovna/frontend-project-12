@@ -1,35 +1,32 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import AuthContext from './AuthContext';
 
 const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [username, setUsername] = useState(localStorage.getItem('username') || '');
 
   const logIn = (token, username) => {
     localStorage.setItem('token', token);
     localStorage.setItem('username', username);
     setLoggedIn(true);
+    setUsername(username);
   };
 
   const logOut = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('username');
     setLoggedIn(false);
+    setUsername('');
   };
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setLoggedIn(true);
-    }
-  }, []);
 
   const authValue = useMemo(
     () => ({
       loggedIn,
+      username,
       logIn,
       logOut,
     }),
-    [loggedIn],
+    [loggedIn, username],
   );
 
   return (

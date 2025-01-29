@@ -43,17 +43,15 @@ const RegistrationForm = () => {
       } catch (error) {
         formik.setSubmitting(false);
         if (error.status === 401) {
-          inputRef.current.select();
           toast.error(t('toastify.error.authError'));
         }
         if (error.status === 409) {
-          inputRef.current.select();
           setRegisterFailed(true);
         }
         if (error.message === 'Network Error') {
-          inputRef.current.select();
           toast.error(t('toastify.error.connectionError'));
         }
+        inputRef.current.select();
       }
     },
   });
