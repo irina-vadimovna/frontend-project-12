@@ -1,8 +1,9 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import customBaseQuery from './customBaseQuery';
 
 export const chatApi = createApi({
   reducerPath: 'chatApi',
-  baseQuery: fetchBaseQuery({
+  baseQuery: customBaseQuery(fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem('token');
@@ -11,7 +12,7 @@ export const chatApi = createApi({
       }
       return headers;
     },
-  }),
+  })),
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (user) => ({

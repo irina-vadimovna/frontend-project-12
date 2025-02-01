@@ -2,7 +2,6 @@ import { Form } from 'react-bootstrap';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import { toast } from 'react-toastify';
 import filter from 'leo-profanity';
 import MessageButtonInput from './MessageButtonInput';
 
@@ -29,11 +28,6 @@ const MessagesForm = ({
         inputRef.current.focus();
       } catch (error) {
         console.log(error);
-        if (error.message === 'Network Error') {
-          toast.error(t('toastify.error.connectionError'));
-        } else {
-          toast.error(t('toastify.error.error'));
-        }
       }
     },
   });

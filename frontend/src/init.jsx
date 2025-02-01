@@ -1,7 +1,7 @@
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next, I18nextProvider } from 'react-i18next';
 import filter from 'leo-profanity';
 import resources from './locales/index';
 import App from './App';
@@ -12,7 +12,6 @@ const init = async () => {
   filter.add(filter.getDictionary('en'));
   filter.add(filter.getDictionary('ru'));
 
-  const i18n = i18next.createInstance();
   const options = {
     resources,
     fallbackLng: 'ru',
@@ -21,7 +20,7 @@ const init = async () => {
     },
   };
 
-  await i18n.use(initReactI18next).init(options);
+  await i18next.use(initReactI18next).init(options);
 
   setupWebSocketListeners(store);
   setupListeners(store.dispatch);
@@ -34,7 +33,9 @@ const init = async () => {
   return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
-        <App />
+        <I18nextProvider i18n={i18next}>
+          <App />
+        </I18nextProvider>
       </ErrorBoundary>
     </RollbarProvider>
   );
