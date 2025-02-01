@@ -12,6 +12,7 @@ const customBaseQuery = (baseQuery) => async (args, api, extraOptions) => {
     return result;
   } catch (error) {
     toast.error(i18next.t('toastify.error.error'));
+    throw error;
   }
 };
 
